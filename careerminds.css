@@ -83,6 +83,7 @@
   --cm-gold: #4a1521;              /* Main burgundy replacing reds and gold accents */
   --cm-gold-soft: #f5e1e5;         /* Light burgundy background for status tags */
   --cm-gold-text: #4a1521;         /* Main burgundy text */
+  --cm-gold-star: #f59e0b;         /* Radiant gold for star ratings */
   --cm-red-light: #6e1f32;         /* Accent burgundy tone */
 
   /* Restora token overrides for full site harmonization */
@@ -1746,9 +1747,10 @@ button.text-link {
 }
 
 .review-stars {
-  color: var(--cm-gold);
+  color: var(--cm-gold-star, #f59e0b);
   margin-bottom: 16px;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
+  letter-spacing: 2px;
   display: flex;
   gap: 2px;
 }
