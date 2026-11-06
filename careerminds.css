@@ -1,0 +1,2227 @@
+/* ==========================================================================
+   Creato Display Font Family (@font-face matching https://usesola.pro/)
+   ========================================================================== */
+@font-face {
+  font-family: "Creato Display";
+  src: url("fonts/CreatoDisplay-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Creato Display";
+  src: url("fonts/CreatoDisplay-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Creato Display";
+  src: url("fonts/CreatoDisplay-Bold.woff2") format("woff2");
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Creato Display";
+  src: url("fonts/CreatoDisplay-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Creato Display";
+  src: url("fonts/CreatoDisplay-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Design Tokens & Color System
+   Adopting Shiplog color architecture:
+   - Green (Deep Forest / Teal): Hero & Header
+   - Cream / Paper: Light sections & cards
+   - Burgundy (Rich Wine): Method / Spotlight section & accents
+   - Gold / Electric: High-voltage highlight accents
+   ========================================================================== */
+
+:root {
+  /* Fonts */
+  --font-sans: "Creato Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Creato Display", sans-serif;
+  --font-body: "Creato Display", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Brand Colors */
+  --cm-green: #073839;             /* Shiplog navy replacement: deep, rich green */
+  --cm-green-deep: #042526;        /* Darker green for top bar & contrast */
+  --cm-green-card: #0c4849;        /* Tinted container green */
+  --cm-green-light: #e7f3f3;       /* Soft green tint */
+  --cm-green-electric: #34d399;    /* Bright electric green accent (like shiplog lime) */
+  --cm-green-glow: rgba(52, 211, 153, 0.2);
+
+  --cm-burgundy: #4a1521;          /* Main rich burgundy */
+  --cm-burgundy-dark: #320c15;     /* Dark wine shade */
+  --cm-burgundy-soft: #fbf2f4;     /* Light-colored burgundy tint */
+  --cm-burgundy-surface: #f7e8eb;  /* Refined light burgundy container fill */
+  --cm-burgundy-line: #ebd1d7;     /* Soft burgundy border */
+  --cm-burgundy-card: #5a1c2a;     /* Rich burgundy card */
+  --cm-burgundy-glow: rgba(74, 21, 33, 0.2);
+
+  --cm-cream: #f6f5ef;             /* Shiplog paper/cream background */
+  --cm-cream-surface: #ffffff;     /* Crisp white on cream */
+  --cm-cream-card: #eeede5;        /* Subtly darker cream for borders/cards */
+  --cm-ink: #111a28;               /* Deep ink text on cream */
+  --cm-muted: #5e6b7e;             /* Editorial muted text */
+  --cm-line: #dadcd3;              /* Hairline divider on cream */
+
+  --cm-gold: #4a1521;              /* Main burgundy replacing reds and gold accents */
+  --cm-gold-soft: #f5e1e5;         /* Light burgundy background for status tags */
+  --cm-gold-text: #4a1521;         /* Main burgundy text */
+  --cm-red-light: #6e1f32;         /* Accent burgundy tone */
+
+  /* Restora token overrides for full site harmonization */
+  --color-bg: var(--cm-cream);
+  --color-text: var(--cm-ink);
+  --color-muted: var(--cm-muted);
+  --color-stroke: var(--cm-line);
+  --color-surface-soft: var(--cm-cream-card);
+  --color-surface-muted: #e7e6dc;
+  --color-inverse: var(--cm-green);
+  --color-on-inverse: #ffffff;
+  --color-blue: var(--cm-green);
+  --color-accent-text: var(--cm-green);
+  --color-brand: var(--cm-green);
+  --color-brand-soft: #7ebabb;
+  --color-line: var(--cm-line);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--cm-cream);
+  color: var(--cm-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.hero__title,
+.section-title,
+.wordmark__text,
+.service__title,
+.enquiry__title,
+.corporate-banner h3 {
+  font-family: var(--font-display);
+}
+
+.hero__title {
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+
+.section-title {
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+/* Button Text-Link Normalization */
+button.text-link {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 2px 0;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: inherit;
+}
+
+/* Mobile Menu Display Rule */
+.mobile-menu:not([hidden]) {
+  display: block;
+}
+
+/* ==========================================================================
+   Announcement Top Banner (Shiplog Notice Bar Style)
+   ========================================================================== */
+.top-banner {
+  background: var(--cm-green-deep);
+  color: #c7e5e5;
+  font-size: 0.8125rem;
+  padding: 10px var(--gutter);
+  text-align: center;
+  position: relative;
+  z-index: 60;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.top-banner__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.top-banner__pill {
+  background: var(--cm-gold);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+.top-banner a {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.top-banner a:hover {
+  color: var(--cm-green-electric);
+}
+
+/* ==========================================================================
+   Navbar (Dynamic Adaptive Top Bar Matching Section Underneath)
+   ========================================================================== */
+.navbar {
+  background: var(--cm-green);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, color 0.35s ease;
+}
+.navbar--raised {
+  background: rgba(7, 56, 57, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 20px rgba(4, 37, 38, 0.25);
+}
+
+.navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.navbar__logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.navbar .wordmark__text {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  transition: color 0.35s ease;
+}
+.navbar__links a {
+  color: #c2d8d8;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.navbar__links a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Top Bar CTAs (Shiplog button color pairing) */
+.navbar__actions {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+@media (min-width: 960px) {
+  .navbar__actions {
+    display: inline-flex;
+  }
+}
+.navbar .button--secondary {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  background: transparent;
+  transition: color 0.35s ease, border-color 0.35s ease, background-color 0.35s ease;
+}
+.navbar .button--secondary:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+.navbar .button--primary {
+  background: var(--cm-green-electric);
+  color: var(--cm-green-deep);
+  font-weight: 700;
+  border: 1px solid var(--cm-green-electric);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.navbar .button--primary:hover {
+  background: #5ef3bc;
+  border-color: #5ef3bc;
+  color: var(--cm-green-deep);
+  transform: translateY(-1px);
+}
+.navbar__toggle {
+  color: #ffffff;
+  transition: color 0.35s ease;
+}
+
+/* --- Theme 1: Green (Default / Hero / Footer) --- */
+.navbar--theme-green {
+  background: var(--cm-green);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+.navbar--theme-green.navbar--raised {
+  background: rgba(7, 56, 57, 0.95);
+  box-shadow: 0 4px 20px rgba(4, 37, 38, 0.25);
+}
+.navbar--theme-green .wordmark__text {
+  color: #ffffff;
+}
+.navbar--theme-green .navbar__links a {
+  color: #c2d8d8;
+}
+.navbar--theme-green .navbar__links a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+.navbar--theme-green .navbar__toggle {
+  color: #ffffff;
+}
+.navbar--theme-green .button--secondary {
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #ffffff;
+  background: transparent;
+}
+.navbar--theme-green .button--secondary:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+.navbar--theme-green .button--primary {
+  background: var(--cm-green-electric);
+  color: var(--cm-green-deep);
+  border-color: var(--cm-green-electric);
+}
+.navbar--theme-green .button--primary:hover {
+  background: #5ef3bc;
+  border-color: #5ef3bc;
+  color: var(--cm-green-deep);
+}
+
+/* --- Theme 2: Cream (Trust / Programs / Reviews / FAQ / Contact) --- */
+.navbar--theme-cream {
+  background: var(--cm-cream);
+  border-bottom-color: rgba(0, 0, 0, 0.09);
+  color: var(--cm-ink);
+}
+.navbar--theme-cream.navbar--raised {
+  background: rgba(246, 245, 239, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+.navbar--theme-cream .wordmark__text {
+  color: var(--cm-green);
+}
+.navbar--theme-cream .navbar__links a {
+  color: #3e4a4a;
+}
+.navbar--theme-cream .navbar__links a:hover {
+  color: var(--cm-green);
+  background: rgba(7, 56, 57, 0.06);
+}
+.navbar--theme-cream .navbar__toggle {
+  color: var(--cm-green);
+}
+.navbar--theme-cream .button--secondary {
+  border-color: var(--cm-green);
+  color: var(--cm-green);
+  background: transparent;
+}
+.navbar--theme-cream .button--secondary:hover {
+  border-color: var(--cm-green);
+  background: rgba(7, 56, 57, 0.08);
+  color: var(--cm-green);
+}
+.navbar--theme-cream .button--primary {
+  background: var(--cm-green);
+  color: #ffffff;
+  border-color: var(--cm-green);
+}
+.navbar--theme-cream .button--primary:hover {
+  background: var(--cm-green-deep);
+  border-color: var(--cm-green-deep);
+  color: #ffffff;
+}
+
+/* --- Theme 3: Burgundy (Courses Band / Instructor Spotlight) --- */
+.navbar--theme-burgundy {
+  background: var(--cm-burgundy-soft);
+  border-bottom-color: var(--cm-burgundy-line);
+  color: var(--cm-ink);
+}
+.navbar--theme-burgundy.navbar--raised {
+  background: rgba(251, 242, 244, 0.96);
+  box-shadow: 0 4px 20px rgba(74, 21, 33, 0.08);
+  border-bottom-color: var(--cm-burgundy-line);
+}
+.navbar--theme-burgundy .wordmark__text {
+  color: var(--cm-green);
+}
+.navbar--theme-burgundy .navbar__links a {
+  color: #5c3841;
+}
+.navbar--theme-burgundy .navbar__links a:hover {
+  color: var(--cm-burgundy);
+  background: rgba(74, 21, 33, 0.06);
+}
+.navbar--theme-burgundy .navbar__toggle {
+  color: var(--cm-burgundy);
+}
+.navbar--theme-burgundy .button--secondary {
+  border-color: var(--cm-green);
+  color: var(--cm-green);
+  background: transparent;
+}
+.navbar--theme-burgundy .button--secondary:hover {
+  border-color: var(--cm-green);
+  background: rgba(7, 56, 57, 0.08);
+  color: var(--cm-green);
+}
+.navbar--theme-burgundy .button--primary {
+  background: var(--cm-burgundy);
+  color: #ffffff;
+  border-color: var(--cm-burgundy);
+}
+.navbar--theme-burgundy .button--primary:hover {
+  background: var(--cm-burgundy-dark);
+  border-color: var(--cm-burgundy-dark);
+  color: #ffffff;
+}
+
+/* Fallback: whenever top bar is not green theme (i.e. changes color on scroll),
+   ensure wordmark text and secondary Log In button become primary green */
+.navbar:not(.navbar--theme-green) .wordmark__text {
+  color: var(--cm-green);
+}
+.navbar:not(.navbar--theme-green) .button--secondary {
+  border-color: var(--cm-green);
+  color: var(--cm-green);
+  background: transparent;
+}
+.navbar:not(.navbar--theme-green) .button--secondary:hover {
+  border-color: var(--cm-green);
+  background: rgba(7, 56, 57, 0.08);
+  color: var(--cm-green);
+}
+
+/* Mobile Menu Dark Green */
+.mobile-menu {
+  background: var(--cm-green-deep);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+.mobile-menu li a {
+  color: #e5f0f0;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+.mobile-menu li a:hover {
+  color: var(--cm-green-electric);
+}
+.mobile-menu .button--primary {
+  background: var(--cm-green-electric);
+  color: var(--cm-green-deep);
+  font-weight: 700;
+}
+.mobile-menu .button--secondary {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   HERO SECTION (Adopt Shiplog Navy/Deep Green Hero)
+   ========================================================================== */
+.hero {
+  background: var(--cm-green);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+/* Shiplog Subtle Technical Grid Mask */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at 60% 40%, black 30%, transparent 85%);
+  pointer-events: none;
+}
+.hero .eyebrow {
+  color: var(--cm-green-electric);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+.hero__title {
+  color: #ffffff;
+  font-size: clamp(2.35rem, 0.4rem + 4.8vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+.hero__title .text-accent {
+  color: var(--cm-green-electric);
+  display: block;
+}
+.hero__lead {
+  color: #c0d8d8;
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.65;
+}
+.hero .button--primary {
+  background: var(--cm-green-electric);
+  color: var(--cm-green-deep);
+  font-weight: 700;
+  border: 1px solid var(--cm-green-electric);
+}
+.hero .button--primary:hover {
+  background: #5ef3bc;
+  border-color: #5ef3bc;
+  color: var(--cm-green-deep);
+  box-shadow: 0 8px 24px rgba(52, 211, 153, 0.25);
+  transform: translateY(-2px);
+}
+.hero .button--secondary {
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #ffffff;
+  background: transparent;
+}
+.hero .button--secondary:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+.hero__badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.badge-hot-cake {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.01em;
+  transition: all 0.2s ease;
+}
+.badge-hot-cake:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Remove decorative dash line (placeholder line) before eyebrows across all sections */
+.eyebrow::before,
+.hero .eyebrow::before,
+#instructor .eyebrow::before,
+.corporate-banner .eyebrow::before {
+  display: none !important;
+  content: none !important;
+}
+
+.eyebrow::after,
+.hero .eyebrow::after {
+  display: none !important;
+  content: none !important;
+}
+.badge-hot-cake::before {
+  content: "🔥";
+  font-size: 0.875rem;
+}
+.hero__trust {
+  color: #a4c4c4;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 20px;
+}
+.hero__trust-rule {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Hero Visual Card (Shiplog App Shell & Live Cyber Classroom Style) */
+.hero__card {
+  background: #ffffff;
+  color: var(--cm-ink);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 80px rgba(4, 37, 38, 0.5), 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 22px;
+  width: 100%;
+  max-width: 540px;
+  position: relative;
+  z-index: 2;
+}
+.hero__card--video {
+  padding: 16px;
+  background: #0a1f20;
+  border: 1px solid rgba(124, 239, 192, 0.25);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55), 0 0 30px rgba(7, 56, 57, 0.4);
+}
+.hero__video-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+.hero__card-badge {
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--cm-green);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero__card--video .hero__card-badge {
+  color: var(--cm-green-electric);
+}
+.pulse-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.35);
+  display: inline-block;
+  animation: pulse-dot 1.8s infinite;
+}
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+  70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+.hero__video-meta {
+  margin-inline: auto 12px;
+}
+.video-meta-pill {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #c7dede;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Video Wrapper & Live Cybersecurity Code HUD */
+.hero__video-wrapper {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #021213;
+  aspect-ratio: 16 / 10;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+.hero__video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.78;
+  filter: contrast(1.05) brightness(0.92);
+}
+.video-cyber-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(4, 25, 26, 0.75) 0%, rgba(4, 25, 26, 0.25) 35%, rgba(4, 25, 26, 0.88) 100%);
+  pointer-events: none;
+}
+.cyber-telemetry-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.telemetry-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #bbf7d0;
+  background: rgba(2, 22, 23, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+.telemetry-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+.telemetry-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fef08a;
+  background: rgba(148, 105, 3, 0.35);
+  border: 1px solid rgba(220, 174, 66, 0.4);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* Python HUD Floating Code Box with Zofu-Style Moving Laser Scanner */
+.cyber-code-hud {
+  align-self: flex-end;
+  max-width: 380px;
+  background: rgba(5, 22, 23, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(52, 211, 153, 0.15);
+  margin-top: auto;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden; /* Clips the scanner beam to the code box */
+}
+
+/* ==========================================================================
+   GREEN SCANNER BEAM & PROGRESSIVE BLUR (Zofu-Style UI Scanner)
+   ========================================================================== */
+.cyber-scanner-beam {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 48px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  animation: scan-twice-fadeout 2.6s ease-in-out 0.5s 1 forwards;
+  will-change: transform, opacity;
+}
+
+/* Three Progressive Blur Layers for Depth & Glass Scanner Sweep */
+.scanner-blur-layer {
+  position: absolute;
+  inset-inline: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Far Layer: Broad, soft ambient backdrop blur + faint mint illumination */
+.scanner-blur-layer--far {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: linear-gradient(
+    180deg,
+    rgba(52, 211, 153, 0) 0%,
+    rgba(52, 211, 153, 0.08) 50%,
+    rgba(52, 211, 153, 0) 100%
+  );
+  filter: blur(6px);
+  transform: scaleY(1.4);
+}
+
+/* Mid Layer: Concentrated progressive blur zone */
+.scanner-blur-layer--mid {
+  top: 10px;
+  height: 28px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: linear-gradient(
+    180deg,
+    rgba(52, 211, 153, 0) 0%,
+    rgba(52, 211, 153, 0.18) 60%,
+    rgba(124, 239, 192, 0.28) 95%,
+    rgba(52, 211, 153, 0) 100%
+  );
+}
+
+/* Near Layer: Crisp focused illumination just behind the laser edge */
+.scanner-blur-layer--near {
+  top: 18px;
+  height: 14px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(124, 239, 192, 0.35) 75%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  filter: blur(2px);
+}
+
+/* The Ultra-Bright High-Tech Laser Scanning Line */
+.scanner-laser-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #ffffff;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(52, 211, 153, 0.7) 15%,
+    #7cefc0 35%,
+    #ffffff 50%,
+    #7cefc0 65%,
+    rgba(52, 211, 153, 0.7) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 6px 1px #ffffff,
+    0 0 14px 3px rgba(124, 239, 192, 0.95),
+    0 0 28px 6px rgba(52, 211, 153, 0.7),
+    0 0 45px 10px rgba(5, 150, 105, 0.45);
+}
+
+/* Intense Focal Pulse Center on the Laser Line */
+.scanner-glow-head {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow:
+    0 0 12px 3px #ffffff,
+    0 0 24px 6px #34d399,
+    0 0 40px 10px rgba(52, 211, 153, 0.8);
+  filter: blur(1px);
+}
+
+/* 
+   Scanner Movement Keyframes: Exactly 2 complete scan passes (Down -> Up -> Down),
+   with smooth 0.5s ease-in-out inflection transitions and a clean final fade-out
+*/
+@keyframes scan-twice-fadeout {
+  /* Initial Fade-In at the top */
+  0% {
+    transform: translateY(-24px);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+
+  /* Scan 1: Down to bottom (~0.5s transition segment) */
+  25% {
+    transform: translateY(115px);
+    opacity: 1;
+  }
+
+  /* Turnaround: Back Up to top (~0.5s transition segment) */
+  50% {
+    transform: translateY(-24px);
+    opacity: 1;
+  }
+
+  /* Scan 2: Down across the code again (~0.5s transition segment) */
+  75% {
+    transform: translateY(115px);
+    opacity: 1;
+  }
+
+  /* Final 0.5s smooth Fade-Out to transparent */
+  90% {
+    transform: translateY(118px);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(120px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.code-hud__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+.code-hud__file {
+  color: #7cefc0;
+  font-weight: 600;
+}
+.code-hud__status {
+  color: #86efac;
+  font-size: 9px;
+  font-weight: 700;
+  background: rgba(34, 197, 94, 0.18);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.code-hud__snippet {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: #e2e8f0;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+.c-kw { color: #f472b6; font-weight: 600; }
+.c-fn { color: #38bdf8; font-weight: 600; }
+.c-call { color: #fbbf24; }
+.c-str { color: #86efac; }
+.c-num { color: #fdba74; }
+
+/* Instructor Telemetry Footer Strip */
+.cyber-instructor-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(3, 19, 20, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.instructor-live-avatar img {
+  border-radius: 50%;
+  border: 1.5px solid var(--cm-green-electric);
+  object-fit: cover;
+  display: block;
+}
+.instructor-live-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  color: #ffffff;
+}
+.instructor-live-info strong {
+  font-size: 11px;
+  color: #ffffff;
+}
+.instructor-live-info span {
+  font-size: 9.5px;
+  color: #99cccc;
+}
+.live-learner-count {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  color: #4ade80;
+  white-space: nowrap;
+}
+.hero__card-dots {
+  display: flex;
+  gap: 5px;
+}
+.hero__card-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+.hero__card-dot:nth-child(1) { background: #ef4444; }
+.hero__card-dot:nth-child(2) { background: #f59e0b; }
+.hero__card-dot:nth-child(3) { background: #10b981; }
+
+.hero__card-body h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  color: var(--cm-ink);
+}
+.hero__card-body p {
+  font-size: 0.875rem;
+  color: var(--cm-muted);
+  line-height: 1.45;
+  margin-bottom: 20px;
+}
+.matrix-grid {
+  display: grid;
+  gap: 9px;
+  margin-bottom: 20px;
+}
+.matrix-row {
+  background: var(--cm-cream);
+  border: 1px solid var(--cm-line);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+}
+.matrix-row span:first-child {
+  font-weight: 600;
+  color: var(--cm-ink);
+}
+.matrix-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.matrix-tag--green {
+  background: #d1fae5;
+  color: #065f46;
+}
+.matrix-tag--blue {
+  background: var(--cm-green-light);
+  color: var(--cm-green);
+}
+.matrix-tag--gold {
+  background: var(--cm-gold-soft);
+  color: var(--cm-gold-text);
+}
+.hero__stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cm-line);
+  text-align: center;
+}
+.stat-mini__number {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--cm-ink);
+}
+.stat-mini__label {
+  font-size: 0.6875rem;
+  color: var(--cm-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* Floating Badges */
+.floating-badge {
+  position: absolute;
+  background: #ffffff;
+  color: var(--cm-ink);
+  border: 1px solid var(--cm-line);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 3;
+  white-space: nowrap;
+}
+.floating-badge--bottom-left {
+  bottom: -20px;
+  left: -20px;
+}
+.floating-badge--top-right {
+  top: -16px;
+  right: -16px;
+}
+@media (max-width: 639px) {
+  .floating-badge {
+    position: static;
+    margin-top: 12px;
+  }
+}
+
+/* ==========================================================================
+   TRUST BAR (Shiplog Ticker Style: Crisp White / Cream Strip with Dividers)
+   ========================================================================== */
+.trust {
+  background: #ffffff;
+  border-block: 1px solid var(--cm-line);
+}
+.trust__item {
+  border-bottom: 1px solid var(--cm-line);
+}
+.trust__icon {
+  color: var(--cm-green);
+}
+.trust__item h3 {
+  color: var(--cm-ink);
+  font-weight: 700;
+}
+.trust__item p {
+  color: var(--cm-muted);
+}
+@media (min-width: 640px) {
+  .trust__item:nth-child(2n) {
+    border-left: 1px solid var(--cm-line);
+  }
+}
+@media (min-width: 1024px) {
+  .trust__item {
+    border-left: 1px solid var(--cm-line);
+  }
+  .trust__item:first-child {
+    border-left: 0;
+  }
+}
+
+/* ==========================================================================
+   SHIPLOG LAYOUT STYLING (Sections 01 & 02 Adoption)
+   Image 2: Section 01 / The Gap Friction Grid (Cream + Green)
+   Image 1: Section 02 / The Approach Blue-Band Replaced with BURGUNDY BAND
+   ========================================================================== */
+
+/* Shiplog Section Top Split Header (.section-top) */
+.section-top {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 60px;
+  margin-bottom: 52px;
+}
+.section-kicker {
+  color: var(--cm-green);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.section-top h2 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.2vw, 54px);
+  line-height: 1.02;
+  letter-spacing: -0.065em;
+  font-weight: 600;
+  margin: 0;
+  max-width: 760px;
+  color: var(--cm-ink);
+}
+.section-top h2 em {
+  font-style: normal;
+  color: var(--cm-green);
+}
+.section-top p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #556276;
+  max-width: 520px;
+  margin: 20px 0 0;
+}
+@media (max-width: 940px) {
+  .section-top {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .section-top p {
+    margin-top: 12px;
+  }
+}
+
+/* Shiplog Section 01 Friction Grid (.friction-grid matching Image 2) */
+.wrap-section {
+  background: var(--cm-cream);
+  padding: 100px 0;
+  border-bottom: 1px solid var(--cm-line);
+}
+.friction-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--cm-line);
+  border-left: 1px solid var(--cm-line);
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+.friction-card {
+  padding: 32px 30px 36px;
+  border-right: 1px solid var(--cm-line);
+  border-bottom: 1px solid var(--cm-line);
+  min-height: 240px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.friction-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(7, 56, 57, 0.08);
+}
+.friction-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+.friction-card .number {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #7d899c;
+  font-weight: 600;
+}
+.friction-card .symbol {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--cm-green);
+  line-height: 1;
+}
+.friction-card h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--cm-ink);
+}
+.friction-card p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #5d6a7d;
+  margin: 0 0 24px;
+  flex: 1;
+}
+.friction-card__footer {
+  padding-top: 16px;
+  border-top: 1px solid var(--cm-line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.friction-card__meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cm-green);
+}
+
+/* Featured Card in Friction Grid */
+.friction-card--highlight {
+  background: var(--cm-green);
+  color: #ffffff;
+}
+.friction-card--highlight h3 {
+  color: #ffffff;
+}
+.friction-card--highlight p {
+  color: #c9dede;
+}
+.friction-card--highlight .friction-card__footer {
+  border-top-color: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 940px) {
+  .friction-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   CURATED COURSES BAND (Section 02: Light Burgundy Canvas + Deep Burgundy Accents)
+   ========================================================================== */
+.burgundy-band {
+  background: var(--cm-burgundy-soft);
+  color: var(--cm-ink);
+  padding: 108px 0;
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid var(--cm-burgundy-line);
+}
+.burgundy-band .section-kicker {
+  color: var(--cm-burgundy);
+  font-weight: 700;
+}
+.burgundy-band .section-top h2 {
+  color: var(--cm-ink);
+}
+.burgundy-band .section-top h2 em {
+  color: var(--cm-burgundy);
+  font-style: italic;
+}
+.burgundy-band .section-top p {
+  color: #5d464c;
+}
+
+/* Shiplog .signal-layout (Image 1) */
+.signal-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 60px;
+  align-items: start;
+}
+.signal-intro {
+  position: sticky;
+  top: 100px;
+}
+.signal-intro .mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cm-burgundy);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 14px;
+}
+.signal-intro h3 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1.05;
+  letter-spacing: -0.06em;
+  font-weight: 700;
+  color: var(--cm-ink);
+  margin: 0 0 18px;
+}
+.signal-intro p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #5d464c;
+  max-width: 380px;
+  margin-bottom: 24px;
+}
+
+/* Filter buttons inside burgundy signal intro */
+.signal-filter-bar {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.signal-filter-btn {
+  background: #ffffff;
+  border: 1px solid var(--cm-burgundy-line);
+  color: #694b52;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.signal-filter-btn:hover {
+  background: var(--cm-burgundy-surface);
+  color: var(--cm-burgundy);
+  border-color: var(--cm-burgundy);
+}
+.signal-filter-btn.active {
+  background: var(--cm-burgundy);
+  color: #ffffff;
+  border-color: var(--cm-burgundy);
+  font-weight: 700;
+}
+
+/* Shiplog .signal-list & .signal-row (Image 1 right list) */
+.signal-list {
+  border-top: 1px solid var(--cm-burgundy-line);
+}
+.signal-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 34px;
+  gap: 20px;
+  align-items: start;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--cm-burgundy-line);
+  transition: background-color 0.2s ease;
+}
+.signal-row:hover {
+  background: rgba(74, 21, 33, 0.03);
+}
+.signal-index {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: var(--cm-burgundy-surface);
+  color: var(--cm-burgundy);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  border: 1px solid var(--cm-burgundy-line);
+}
+.signal-row__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.signal-row h4 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  color: var(--cm-ink);
+  margin: 0;
+}
+.signal-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.signal-tag--gold {
+  background: #f7e1e6;
+  color: var(--cm-burgundy);
+  border: 1px solid #e5b9c3;
+}
+.signal-tag--mint {
+  background: rgba(52, 211, 153, 0.15);
+  color: #065f46;
+  border: 1px solid rgba(52, 211, 153, 0.35);
+}
+.signal-row p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #5d464c;
+  margin: 0 0 10px;
+  max-width: 520px;
+}
+.signal-row .service__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+.signal-row .service__tags .tag {
+  background: transparent;
+  color: var(--cm-burgundy);
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+}
+.signal-row .service__tags .tag:not(:last-child)::after {
+  content: "•";
+  margin-left: 12px;
+  color: var(--cm-burgundy-line);
+  font-weight: 400;
+}
+.signal-plus-btn {
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border: 1px solid var(--cm-burgundy-line);
+  border-radius: 4px;
+  color: var(--cm-burgundy);
+  font-size: 20px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+}
+.signal-row:hover .signal-plus-btn {
+  transform: translate(2px, -2px);
+  background: var(--cm-burgundy);
+  color: #ffffff;
+  border-color: var(--cm-burgundy);
+}
+
+@media (max-width: 940px) {
+  .signal-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .signal-intro {
+    position: static;
+  }
+  .signal-row {
+    grid-template-columns: 34px 1fr 28px;
+    gap: 12px;
+  }
+  .signal-index {
+    width: 34px;
+    height: 34px;
+    font-size: 11px;
+  }
+  .signal-row h4 {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================================
+   INSTRUCTOR SPOTLIGHT (Shiplog .method section: THE BURGUNDY SECTION)
+   "the burgundy for another section"
+   ========================================================================== */
+#instructor {
+  background: var(--cm-burgundy);
+  color: #ffffff;
+  border-block: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+#instructor .eyebrow {
+  color: var(--cm-gold);
+}
+#instructor .section-title {
+  color: #ffffff;
+}
+#instructor .section-lead {
+  color: #eed5da;
+}
+.instructor-visual {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--cm-burgundy-dark);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 24px 60px rgba(35, 7, 13, 0.45);
+}
+.instructor-visual img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center 15%;
+  display: block;
+}
+.instructor-badge-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(180deg, transparent 0%, rgba(35, 7, 13, 0.95) 100%);
+  color: #ffffff;
+}
+.instructor-badge-overlay h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+.instructor-badge-overlay p {
+  font-size: 0.875rem;
+  color: #f7dbe0;
+}
+#instructor .why__item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+#instructor .why__icon {
+  color: var(--cm-gold);
+}
+#instructor .why__item h3 {
+  color: #ffffff;
+  font-weight: 700;
+}
+#instructor .why__item p {
+  color: #edd1d7;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   PARTNERS BAR (Cream & Burgundy Accent)
+   ========================================================================== */
+.partners-section {
+  background: var(--cm-cream);
+  border-block: 1px solid var(--cm-line);
+  padding-block: clamp(32px, 5vw, 48px);
+}
+.partners-label {
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cm-muted);
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+.partners-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+}
+.partner-logo-item {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #727e90;
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.partner-logo-item:hover {
+  color: var(--cm-green);
+}
+
+/* ==========================================================================
+   REVIEWS & TESTIMONIALS (Cream + Burgundy Accents)
+   ========================================================================== */
+#reviews {
+  background: var(--cm-cream);
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 640px) {
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .reviews-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* 3D Flip Card Container */
+.review-flip-card {
+  perspective: 1200px;
+  background: transparent;
+  min-height: 320px;
+  outline: none;
+}
+
+.review-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-in-out;
+  border-radius: var(--radius-md);
+}
+
+/* Hover and keyboard focus flip trigger */
+.review-flip-card:hover .review-flip-inner,
+.review-flip-card:focus-within .review-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.review-card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--cm-line);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* Front Face (Original Review) */
+.review-card-front {
+  background: #ffffff;
+  transform: rotateY(0deg);
+}
+
+/* Back Face (Course Details & Enroll) */
+.review-card-back {
+  background: #ffffff;
+  border-color: var(--cm-burgundy);
+  transform: rotateY(180deg);
+  box-shadow: 0 16px 36px rgba(74, 21, 33, 0.12);
+  gap: 14px;
+}
+
+.review-back__header {
+  border-bottom: 1px solid var(--cm-line);
+  padding-bottom: 12px;
+}
+
+.review-back__kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cm-burgundy);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.review-back__title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--cm-burgundy);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.review-back__desc {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--cm-ink);
+  margin-bottom: 12px;
+}
+
+.review-back__specs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: var(--cm-muted);
+}
+
+.review-back__specs strong {
+  color: var(--cm-ink);
+}
+
+.review-back__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--cm-line);
+  margin-top: auto;
+}
+
+.review-back__enroll {
+  background: var(--cm-burgundy);
+  color: #ffffff;
+  border-color: var(--cm-burgundy);
+  font-weight: 700;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.review-back__enroll:hover {
+  background: var(--cm-burgundy-dark);
+  border-color: var(--cm-burgundy-dark);
+  box-shadow: 0 6px 18px rgba(74, 21, 33, 0.25);
+  color: #ffffff;
+}
+  color: #ffffff;
+}
+
+.review-back__link {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cm-burgundy);
+}
+
+.review-back__link:hover {
+  color: var(--cm-burgundy-dark);
+}
+
+.review-stars {
+  color: var(--cm-gold);
+  margin-bottom: 16px;
+  font-size: 0.875rem;
+  display: flex;
+  gap: 2px;
+}
+.review-quote {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--cm-ink);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cm-line);
+}
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cm-burgundy);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  flex-shrink: 0;
+}
+.review-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+.review-meta h5 {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--cm-ink);
+}
+.review-meta span {
+  margin: 0;
+  padding: 0;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  color: var(--cm-muted);
+}
+
+/* ==========================================================================
+   CORPORATE BANNER (Shiplog .cta style in Burgundy & Cream)
+   ========================================================================== */
+.corporate-banner {
+  background: var(--cm-burgundy);
+  color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: clamp(36px, 5vw, 68px);
+  margin-top: clamp(48px, 8vw, 88px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(50, 12, 21, 0.25);
+}
+.corporate-banner .eyebrow {
+  color: var(--cm-gold);
+}
+.corporate-banner h3 {
+  font-size: clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+.corporate-banner p {
+  color: #f0d5db;
+  font-size: 1.0625rem;
+  max-width: 36rem;
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+.corporate-banner .button--primary {
+  background: var(--cm-green-electric);
+  color: var(--cm-green-deep);
+  font-weight: 700;
+  border: 1px solid var(--cm-green-electric);
+}
+.corporate-banner .button--primary:hover {
+  background: #5ef3bc;
+  border-color: #5ef3bc;
+}
+.corporate-banner .button--secondary {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   HELP CENTER & FAQ (Cream & Burgundy Harmony)
+   ========================================================================== */
+#faq {
+  background: var(--cm-cream);
+  border-top: 1px solid var(--cm-line);
+}
+.accordion {
+  border-top: 1px solid var(--cm-line);
+}
+.accordion__item {
+  border-bottom: 1px solid var(--cm-line);
+}
+.accordion__trigger {
+  color: var(--cm-ink);
+  font-weight: 600;
+}
+.accordion__trigger:hover span {
+  color: var(--cm-burgundy);
+}
+.accordion__icon {
+  color: var(--cm-burgundy);
+}
+.accordion__item--open .accordion__icon {
+  color: var(--cm-burgundy);
+}
+.accordion__panel p {
+  color: var(--cm-muted);
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   CONTACT & ENROLLMENT (Cream Canvas + Crisp Elevated Form)
+   ========================================================================== */
+#contact {
+  background: #ffffff;
+  border-top: 1px solid var(--cm-line);
+}
+.contact-detail__icon {
+  background: var(--cm-green-light);
+  color: var(--cm-green);
+}
+.contact-detail dd a {
+  color: var(--cm-green);
+  font-weight: 600;
+}
+.enquiry {
+  background: var(--cm-cream);
+  border: 1px solid var(--cm-line);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 4vw, 44px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.04);
+}
+.enquiry__title {
+  color: var(--cm-ink);
+  font-weight: 700;
+}
+.enquiry__note {
+  color: var(--cm-muted);
+}
+.field label {
+  color: var(--cm-ink);
+  font-weight: 600;
+}
+.field input, .field select, .field textarea {
+  background: #ffffff;
+  border-color: var(--cm-line);
+  color: var(--cm-ink);
+}
+.field input:hover, .field select:hover, .field textarea:hover {
+  border-color: var(--cm-green);
+}
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible {
+  outline: 2px solid var(--cm-green);
+  border-color: var(--cm-green);
+}
+.enquiry .button--primary {
+  background: var(--cm-green);
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid var(--cm-green);
+}
+.enquiry .button--primary:hover {
+  background: var(--cm-green-deep);
+  border-color: var(--cm-green-deep);
+  box-shadow: 0 8px 24px rgba(7, 56, 57, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   FOOTER (Shiplog Dark Green Footer)
+   ========================================================================== */
+.footer {
+  background: var(--cm-green-deep);
+  color: #a7bebe;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.footer__heading {
+  color: var(--cm-green-electric);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.footer a {
+  color: #c9dbdb;
+}
+.footer a:hover {
+  color: #ffffff;
+}
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #8da4a4;
+}
+
+/* ==========================================================================
+   Modal Curriculum Drawer
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 37, 38, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-dialog {
+  background: #ffffff;
+  color: var(--cm-ink);
+  border: 1px solid var(--cm-line);
+  border-radius: var(--radius-lg);
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(24px, 4vw, 40px);
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s var(--ease);
+  box-shadow: 0 24px 64px rgba(4, 37, 38, 0.3);
+}
+.modal-overlay.open .modal-dialog {
+  transform: translateY(0);
+}
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--cm-cream);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--cm-muted);
+  transition: all 0.2s ease;
+}
+.modal-close:hover {
+  background: var(--cm-burgundy-soft);
+  color: var(--cm-burgundy);
+}
+.modal-dialog .button--primary {
+  background: var(--cm-burgundy);
+  color: #ffffff;
+}
+.modal-dialog .button--primary:hover {
+  background: var(--cm-burgundy-dark);
+}
+
+/* ==========================================================================
+   Toast Notification
+   ========================================================================== */
+.toast-msg {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--cm-burgundy);
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 10px 28px rgba(74, 21, 33, 0.3);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.toast-msg.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Supporting Tutors Interactive Image Popup
+   ========================================================================== */
+.tutor-highlight {
+  position: relative;
+  display: inline-inline-flex;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+}
+
+.tutor-name {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  transition: all 0.2s ease;
+  border-radius: 3px;
+}
+
+.tutor-highlight:hover .tutor-name,
+.tutor-highlight:focus-visible .tutor-name {
+  color: #34d399; /* Electric green accent */
+  text-decoration-color: #34d399;
+  text-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
+}
+
+.tutor-highlight:focus-visible {
+  outline: 2px solid #34d399;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.tutor-popup {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px) scale(0.96);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background: #ffffff;
+  color: var(--cm-ink);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: 320px;
+  z-index: 200;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.25s;
+}
+
+.tutor-popup::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 7px 7px 0 7px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.08));
+}
+
+.tutor-popup img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #073839;
+  box-shadow: 0 4px 10px rgba(7, 56, 57, 0.25);
+  background: #f6f5ef;
+}
+
+.tutor-popup__meta {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.tutor-popup__title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #073839;
+  letter-spacing: -0.01em;
+}
+
+.tutor-popup__subtitle {
+  font-size: 0.75rem;
+  color: #5e6b7e;
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+.tutor-popup__role {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #4a1521;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 4px;
+}
+
+/* Hover and Focus triggers */
+.tutor-highlight:hover .tutor-popup,
+.tutor-highlight:focus-within .tutor-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+@media (max-width: 640px) {
+  .tutor-popup {
+    left: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  .tutor-popup::after {
+    left: 24px;
+    transform: none;
+  }
+  .tutor-highlight:hover .tutor-popup,
+  .tutor-highlight:focus-within .tutor-popup {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   Scroll Reveal Interactions (Shiplog Interaction Model)
+   Elements transition in on scroll: opacity, position (translateY), and scale
+   ========================================================================== */
+.js-ready .reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.97);
+  transition: opacity 0.72s cubic-bezier(0.2, 0.7, 0.2, 1),
+              transform 0.72s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.js-ready .reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Maintain smooth hover elevation on cards after reveal animation */
+.js-ready .friction-card.reveal.visible:hover {
+  transform: translateY(-3px) scale(1);
+}
+.js-ready .signal-row.reveal.visible:hover {
+  transform: translateY(-2px) scale(1);
+}
+.js-ready .corporate-banner.reveal.visible:hover {
+  transform: translateY(-2px) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js-ready .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
