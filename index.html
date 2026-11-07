@@ -101,6 +101,8 @@
     <main id="main">
       <!-- HERO SECTION (Restora .hero grid style) -->
       <section class="hero" data-nav-theme="green" aria-labelledby="hero-title">
+        <!-- Night Sky Little Stars Background -->
+        <canvas id="hero-stars" class="hero__stars" aria-hidden="true"></canvas>
         <div class="container">
           <div class="hero__grid">
             <!-- Left Copy Column -->
@@ -1285,6 +1287,335 @@
       } else {
         reveals.forEach(el => el.classList.add('visible'));
       }
+
+      // Night Sky Moving Glowing Stars & Shooting Stars with Click Shimmer Interaction
+      (function initNightSkyStarfield() {
+        const canvas = document.getElementById('hero-stars');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        const hero = canvas.closest('.hero') || canvas.parentElement;
+        let width = 0;
+        let height = 0;
+        let dpr = window.devicePixelRatio || 1;
+        let stars = [];
+        let shootingStars = [];
+        let ripples = [];
+        let isVisible = true;
+        let animId = null;
+        let lastShootingStarTime = performance.now();
+        let nextShootingStarInterval = 2500 + Math.random() * 2500;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function resize() {
+          const rect = hero.getBoundingClientRect();
+          width = rect.width;
+          height = rect.height;
+          dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+          canvas.width = Math.floor(width * dpr);
+          canvas.height = Math.floor(height * dpr);
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+          createStars();
+        }
+
+        function createStars() {
+          const starCount = 15; // Just 15 stars in total
+          stars = [];
+
+          for (let i = 0; i < starCount; i++) {
+            const r = Math.random();
+            // Tiny pinpoint sizes: 0.35px to 0.75px
+            let baseRadius = 0.45;
+            if (r > 0.8) {
+              baseRadius = 0.75;
+            } else if (r > 0.45) {
+              baseRadius = 0.55;
+            } else {
+              baseRadius = 0.35 + Math.random() * 0.15;
+            }
+
+            // Organic drifting velocity in all directions
+            const driftAngle = Math.random() * Math.PI * 2;
+            const driftSpeed = 0.10 + Math.random() * 0.18;
+
+            stars.push({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              vx: Math.cos(driftAngle) * driftSpeed,
+              vy: Math.sin(driftAngle) * driftSpeed,
+              driftAngle: driftAngle,
+              driftSpeed: driftSpeed,
+              baseRadius: baseRadius,
+              baseAlpha: 0.4 + Math.random() * 0.55,
+              twinkleSpeed: 0.0014 + Math.random() * 0.0028,
+              phase: Math.random() * Math.PI * 2,
+              shimmerStart: 0,
+              shimmering: false
+            });
+          }
+        }
+
+        function spawnShootingStar(customOriginX, customOriginY) {
+          if (prefersReducedMotion) return;
+
+          // Angle: sleek diagonal sweep downwards (~32deg to 48deg)
+          const angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.25;
+          const speed = 10 + Math.random() * 6;
+          const length = 80 + Math.random() * 90;
+
+          let startX, startY;
+          if (typeof customOriginX === 'number' && typeof customOriginY === 'number') {
+            startX = customOriginX;
+            startY = customOriginY;
+          } else {
+            // Spawn from top half or top-left boundary
+            startX = Math.random() * width * 0.85;
+            startY = Math.random() * (height * 0.45);
+          }
+
+          shootingStars.push({
+            x: startX,
+            y: startY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            angle: angle,
+            length: length,
+            speed: speed,
+            thickness: 1.0 + Math.random() * 0.6,
+            headRadius: 1.1 + Math.random() * 0.6,
+            life: 0,
+            maxLife: 45 + Math.random() * 35 // ~0.8s to 1.3s duration
+          });
+        }
+
+        function triggerShimmer(clickX, clickY) {
+          const now = performance.now();
+
+          // Push click ripple wave
+          ripples.push({
+            x: clickX,
+            y: clickY,
+            startTime: now,
+            maxRadius: Math.max(width, height) * 0.9,
+            duration: 1100
+          });
+
+          // Wave of shimmering light propagates through all moving stars
+          stars.forEach(star => {
+            const dist = Math.hypot(star.x - clickX, star.y - clickY);
+            const delay = Math.min(dist / 0.75, 800);
+            star.shimmerStart = now + delay;
+            star.shimmering = true;
+          });
+
+          // Also launch an interactive shooting star from near the click area!
+          spawnShootingStar(
+            Math.max(20, clickX - 80 + (Math.random() - 0.5) * 60),
+            Math.max(20, clickY - 80 + (Math.random() - 0.5) * 60)
+          );
+        }
+
+        // Click listeners on hero background and document
+        if (hero) {
+          hero.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+            triggerShimmer(clickX, clickY);
+          });
+        }
+
+        document.addEventListener('click', (e) => {
+          if (!canvas) return;
+          const rect = canvas.getBoundingClientRect();
+          if (e.clientX >= rect.left && e.clientX <= rect.right &&
+              e.clientY >= rect.top && e.clientY <= rect.bottom) {
+            // Handled by hero listener
+          } else if (rect.bottom > 0 && rect.top < window.innerHeight) {
+            triggerShimmer(width / 2, Math.min(height / 2, 200));
+          }
+        });
+
+        function render(now) {
+          if (!isVisible) return;
+
+          ctx.clearRect(0, 0, width, height);
+
+          // Periodically spawn shooting stars
+          if (!prefersReducedMotion && now - lastShootingStarTime > nextShootingStarInterval) {
+            spawnShootingStar();
+            lastShootingStarTime = now;
+            nextShootingStarInterval = 2500 + Math.random() * 3000;
+          }
+
+          // 1. Render expanding click ripple waves
+          for (let i = ripples.length - 1; i >= 0; i--) {
+            const r = ripples[i];
+            const elapsed = now - r.startTime;
+            if (elapsed > r.duration) {
+              ripples.splice(i, 1);
+              continue;
+            }
+            const progress = elapsed / r.duration;
+            const radius = progress * r.maxRadius;
+            const alpha = Math.sin(progress * Math.PI) * 0.22;
+
+            ctx.beginPath();
+            ctx.arc(r.x, r.y, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
+            ctx.lineWidth = 1.25;
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
+            ctx.shadowBlur = 6;
+            ctx.stroke();
+          }
+
+          // 2. Render moving glowing stars
+          for (let i = 0; i < stars.length; i++) {
+            const star = stars[i];
+
+            // Celestial drift motion
+            if (!prefersReducedMotion) {
+              star.driftAngle += (Math.random() - 0.5) * 0.015;
+              star.x += Math.cos(star.driftAngle) * star.driftSpeed;
+              star.y += Math.sin(star.driftAngle) * star.driftSpeed;
+
+              // Smooth toroidal screen wrapping
+              if (star.x < -8) star.x = width + 8;
+              else if (star.x > width + 8) star.x = -8;
+              if (star.y < -8) star.y = height + 8;
+              else if (star.y > height + 8) star.y = -8;
+            }
+
+            // Continuous breathing glow & twinkle
+            let alpha = star.baseAlpha + Math.sin(now * star.twinkleSpeed + star.phase) * 0.22;
+            let radius = star.baseRadius;
+            let isSparkling = false;
+
+            // Check shimmer wave
+            if (star.shimmering) {
+              const elapsed = now - star.shimmerStart;
+              if (elapsed >= 0 && elapsed < 1100) {
+                const t = elapsed / 1100;
+                const shimmerPulse = Math.sin(t * Math.PI);
+                const rapidFlutter = 0.5 + 0.5 * Math.sin(t * Math.PI * 14);
+
+                alpha = Math.min(1, alpha + (1 - alpha) * shimmerPulse * rapidFlutter + 0.35 * shimmerPulse);
+                radius = star.baseRadius * (1 + 0.8 * shimmerPulse * rapidFlutter);
+                isSparkling = shimmerPulse > 0.35 && star.baseRadius >= 1.0;
+              } else if (elapsed >= 1100) {
+                star.shimmering = false;
+              }
+            }
+
+            alpha = Math.max(0.12, Math.min(1, alpha));
+
+            // Ambient outer soft glow halo for that glowing night sky feel
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, radius * 1.8, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${(alpha * 0.16).toFixed(3)})`;
+            ctx.fill();
+
+            // Inner glowing pinpoint core
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.95)';
+            ctx.shadowBlur = alpha > 0.65 ? 2.5 : 1.5;
+            ctx.fill();
+
+            // Delicate sparkle cross during shimmer
+            if (isSparkling && !prefersReducedMotion) {
+              ctx.strokeStyle = `rgba(255, 255, 255, ${(alpha * 0.8).toFixed(3)})`;
+              ctx.lineWidth = 0.5;
+              const rayLen = radius * 2.2;
+
+              ctx.beginPath();
+              ctx.moveTo(star.x - rayLen, star.y);
+              ctx.lineTo(star.x + rayLen, star.y);
+              ctx.moveTo(star.x, star.y - rayLen);
+              ctx.lineTo(star.x, star.y + rayLen);
+              ctx.stroke();
+            }
+          }
+
+          // 3. Render Shooting Stars with luminous trailing tails
+          for (let i = shootingStars.length - 1; i >= 0; i--) {
+            const s = shootingStars[i];
+            s.life++;
+            s.x += s.vx;
+            s.y += s.vy;
+
+            const progress = s.life / s.maxLife;
+            if (progress >= 1 || s.x > width + 100 || s.y > height + 100) {
+              shootingStars.splice(i, 1);
+              continue;
+            }
+
+            // Smooth opacity envelope (fade in quickly, stay bright, fade out)
+            let sOpacity = 1;
+            if (progress < 0.15) {
+              sOpacity = progress / 0.15;
+            } else if (progress > 0.65) {
+              sOpacity = 1 - (progress - 0.65) / 0.35;
+            }
+
+            const tailX = s.x - Math.cos(s.angle) * s.length;
+            const tailY = s.y - Math.sin(s.angle) * s.length;
+
+            // Gradient trailing streak
+            const grad = ctx.createLinearGradient(s.x, s.y, tailX, tailY);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${(sOpacity * 0.95).toFixed(3)})`);
+            grad.addColorStop(0.2, `rgba(235, 250, 255, ${(sOpacity * 0.75).toFixed(3)})`);
+            grad.addColorStop(0.6, `rgba(140, 235, 255, ${(sOpacity * 0.35).toFixed(3)})`);
+            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            ctx.beginPath();
+            ctx.moveTo(s.x, s.y);
+            ctx.lineTo(tailX, tailY);
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = s.thickness;
+            ctx.lineCap = 'round';
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+            ctx.shadowBlur = 8;
+            ctx.stroke();
+
+            // Bright sparkling head
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.headRadius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${(sOpacity).toFixed(3)})`;
+            ctx.shadowColor = 'rgba(255, 255, 255, 1)';
+            ctx.shadowBlur = 10;
+            ctx.fill();
+          }
+
+          ctx.shadowBlur = 0;
+
+          if (!prefersReducedMotion) {
+            animId = requestAnimationFrame(render);
+          }
+        }
+
+        // Pause animation when hero is offscreen to save battery/CPU
+        if ('IntersectionObserver' in window) {
+          const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              isVisible = entry.isIntersecting;
+              if (isVisible && !prefersReducedMotion) {
+                cancelAnimationFrame(animId);
+                animId = requestAnimationFrame(render);
+              }
+            });
+          }, { threshold: 0.05 });
+          obs.observe(hero);
+        }
+
+        window.addEventListener('resize', resize, { passive: true });
+        resize();
+        animId = requestAnimationFrame(render);
+      })();
 
       // Current Year
       document.getElementById('current-year').textContent = new Date().getFullYear();
